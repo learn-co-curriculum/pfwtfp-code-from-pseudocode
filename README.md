@@ -6,135 +6,9 @@
 
 ## Introduction
 
-We have pseudocode ready to go! Let's code it up.
-
-## Step 6: Step 6: Verify the Procedure's Output
-
-Let's try working with the pseudocode. Here is the code again.
-
-```text
-Procedure DivideBaguetteEvenly(baguette, n):
-  baguette_length = measure(baguette)
-  even_length = baguette_length / n
-  collection = []
-
-  while baguette_length > even_length:
-    piece, rest = cut_bread(baguette, even_length)
-    collection.add(piece)
-
-    baguette = rest
-    baguette_length = measure(baguette)
-
-  even_pieces = collection
-  return even_pieces
-```
-
-An awesome technique for debugging pseudocode problems (and an awesome
-technique in whiteboard interviews too) is to build a variable table. List all
-the inputs (Step 4), the state of the output (Step 2), and any local variables
-used in the implementation:
-
-|Variable|State|State|State|State|State|State|State|State|State|
-|--------|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-|Input: `baguette`|||||||||||
-|Input: _n_|||||||||||
-|Output: even_pieces|||||||||||
-|Local: `baguette_length`|||||||||||
-|Local: `even_length`|||||||||||
-|Local: `collection`|||||||||||
-
-Let's fill in this table together for the first pass.
-
-|Variable|State|State|State|State|State|State|State|State|State|
-|--------|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-|Input: `baguette`|||||||||||
-|Input: _n_|||||||||||
-|Output: even_pieces|||||||||||
-|Local: `baguette_length`|||||||||||
-|Local: `even_length`|||||||||||
-|Local: `collection`|||||||||||
-
-We don't know what's in `baguette`, so let's just put `thing with a length` in
-there. Maybe it will be an instance of a class, maybe it'll be a `Hash`. Who
-knows. It might not even matter.
-
-`n` will wind up staying constant (the number of friends). For testing our
-pseudocode, let's set it to `3`.
-
-`even_pieces` is something we'll return at the end, but as we start the
-Procedure, it's empty.
-
-`baguette_length` is something that we're counting on a made-up helper to help
-us figure out. Let's assume that the helper does its job correctly. Let's just
-pick a good value to work with. We'll use `60`.
-
-The remaining `Locals` are empty.
-
-Step through the pseudocode and make changes to this table in a piece of paper.
-See whether this code works like it should.
-
-## Checking your Variable State Table
-
-Again, while we're not testing _code_ we can use some of its conventions to
-help test our _pseudocode_. Imagine calling our Procedure with a baguette and a
-3-person party.
-
-```text
-DivideBaguetteEvenly( <60cm length baguette>, 3)
-```
-
-Here's how the table fill out:
-
-|Variable|State|State|State|State|State|State|State|State|State|
-|--------|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-|Input: `baguette`| (something with a length)|40cm baguette|20cm baguette||||||||
-|Input: _n_|3||||||||||
-|Output: even_pieces|[]|[20cm piece, 20cm piece]|||||||||
-|Local: `baguette_length`|(stub: 60)|40|20||||||||
-|Local: `even_length`|20||||||||||
-|Local: `collection`|[20cm piece]|[20cm piece, 20cm piece]|||||||||
-|Local: `rest`|40cm baguette|20cm baguette|||||||||
-|Local: `piece`|20cm piece|20cm piece|||||||||
-
-Output: `[20cm piece, 20cm piece]`
-
-That's not right. 60cm among 3 should be 3 pieces. Using the table, we should
-be able to debug what went wrong.
-
-
-## Introducing the Triangle Process of Debugging
-
-Whenever we debug we should always "block off" the code or pseudocode that's
-causing the problem. In this case we're going to be looking at the Procedure.
-
-* Were its inputs correct?
-* Were its outputs correct?
-* Was the implementation correct
-
-* Our inputs were correct.
-* Our output was incorrect
-* What went wrong in our implementation?
-
-Let's make some hypotheses about what a "working" method would have:
-
-* How *many* pieces do we expect? Did we get that many?
-* How *long* should the baguette be at the end. Was it?
-
-The state table tells us clearly:
-
-* `3`
-* No
-
-What _was_ the length of the baguette? It was 20cm. Had a 60cm baguette been
-cut evenly among 3 people, the baguette's length should have been 0 in the last
-loop. It wasn't. `20cm` is the `even_length`, that's probably not a
-coincidence...what if the `baguette_length` equals the `even_length`? Nothing.
-
-Try stepping through the Procedure with `(60cm baguette,1)`. Do you see why you
-get, _bafflingly_, nothing back?
-
-Our bug is we should have used `>=`. Update your pseudocode and test it with a
-table to verify that the fix works.
+We have pseudocode ready to go! We're finally at our last step in the Flatiron
+Process: _encoding_ or _translating_ into the language that a computer can
+understand.
 
 Let's try translating this from the Real World into Ruby.
 
@@ -184,6 +58,7 @@ end
 
 # Call our method
 p divide_baguette_evenly(demo_baguette, 3)
+```
 
 ## Translation
 
@@ -215,6 +90,10 @@ of `divide_baguette_evenly` into the nearly-complete sample.
 
 ## Conclusion
 
-Uh-oh, yet again a bug has crept into our code!
+Using the Flatiron Process of problem solving and the Triangle Process of
+debugging we went from need, to pseudocode, to debugged pseudocode, to working
+code.
 
-## Resources
+If you build up your code in this fashion it will _never_ get away from you.
+You will always have working code that gains capabilities to achieve larger and
+larger problems.
